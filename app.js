@@ -91,6 +91,10 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/user', user);
 
+app.use('/profile', ensureLoggedIn, require('./profile')());
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   const err = new Error('Not Found');
@@ -123,3 +127,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
