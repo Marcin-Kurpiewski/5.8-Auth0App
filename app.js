@@ -9,13 +9,12 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const flash = require('connect-flash');
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 
 dotenv.load();
 
 const routes = require('./routes/index');
 const user = require('./routes/user');
-const profile = require('./routes/profile');
-
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
@@ -92,10 +91,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/user', user);
-app.use('/profile', profile);
-
-
-
+app.use('/profile', ensureLoggedIn, require('./routes/profile')());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
