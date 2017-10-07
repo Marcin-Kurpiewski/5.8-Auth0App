@@ -18,12 +18,7 @@ function renderForm(req, res, locals) {
     res.render('profile', extend({
         title: 'My Profile',
         csrfToken: req.csrfToken(),
-        givenName: req.user.givenName,
-        surname: req.user.surname,
-        streetAddress: req.user.customData.streetAddress,
-        city: req.user.customData.city,
-        state: req.user.customData.state,
-        zip: req.user.customData.zip
+        givenName: req.user.givenName
     }, locals || {}));
 }
 
