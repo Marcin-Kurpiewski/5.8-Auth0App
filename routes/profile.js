@@ -40,11 +40,7 @@ module.exports = function profile() {
         profileForm.handle(req, {
             success: function(form) {
                 req.user.givenName = form.data.givenName;
-                req.user.surname = form.data.surname;
-                req.user.customData.streetAddress = form.data.streetAddress;
-                req.user.customData.city = form.data.city;
-                req.user.customData.state = form.data.state;
-                req.user.customData.zip = form.data.zip;
+                req.user.surname = form.data.surname;                
                 req.user.customData.save();
                 req.user.save(function(err) {
                     if (err) {
