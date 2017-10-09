@@ -4,6 +4,8 @@ var csurf = require('csurf');
 var express = require('express');
 var extend = require('xtend');
 var forms = require('forms');
+var mongoose = require('mongoose');
+var User= require('../data/models');
 
 var profileForm = forms.create({
     givenName: forms.fields.string({ required: true }),
@@ -58,7 +60,25 @@ module.exports = function profile() {
             empty: function() {
                 renderForm(req, res);
             }
+
         });
+
+        var user = new User();
+
+        var address = new Address();
+        address.givenName = req.user.givenName;
+        address.surname = req.user.surname;
+        address.save(function(err) {
+            if (err) {
+                console.log(err);
+            }
+            res.json('Address added to DB');
+        });
+
+
+
+
+
     });
 
     return router;
